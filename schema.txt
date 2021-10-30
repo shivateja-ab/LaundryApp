@@ -1,0 +1,81 @@
+Users = {
+//Id autogen.
+Name : { type : String },
+Email : { type: String },
+Password : { type : String },
+Mobile : { type : Number },
+Address : { type: String },
+District : { type : String },
+State : { type : String },
+Pincode : {type : Number }
+}
+--------------------------------------------
+Stores = {
+//id autogen.
+
+Name: { type:String (Jp nagar) },
+Store address : { type : String },
+Phone : { type : Number }
+}
+---------------------------------------------------
+ActionSchema=mongoose.Schema({
+selected:Boolean,
+cost:Number,
+})
+-------------------------------------------
+ItemSchema=mongoose.Schema({
+quantity:Number(def 0);
+wash:ActionSchema;
+iron:ActionSchema
+fold:ActionSchema
+chemicalwash:ActionSchema;
+price:Number
+})
+----------------------------------------------------
+eg.,
+
+shirt:{
+quantity:5,
+wash:{selected:True, cost:15},
+iron:{selected:True,cost:10},
+fold:{selected:False,cost:10},
+chemwash:{selected:False,cost:25}
+price:125
+}
+
+------------------------------------------
+
+
+
+Orders = {
+//_id:autogen ( we use for database ops)
+OrderID:{type:Buffer},
+Date&Time : {type:Date , default:Date.now },
+Shirts:ItemSchema,
+Tshirts:ItemSchema,
+Trousers:ItemSchema,
+Jeans:ItemSchema,
+Boxers:ItemSchema,
+Joggers:ItemSchema,
+Subtotal:Number;
+pickupcharges:Number,   //(setting logic)
+Total:Number;
+store:storeschema {type:mongoose.Schema.Type.ObjectId,ref='Store'},
+user:{type:mongoose.Schema.Type.ObjectId,ref='User'},
+Status:{type:String},
+Totalitems:{type:Number}
+}
+
+===============================================================
+
+
+
+
+
+
+
+
+
+
+
+
