@@ -1,34 +1,29 @@
 Users = {
 //Id autogen.
-Name : { type : String },
-Email : { type: String },
-Password : { type : String },
-Mobile : { type : Number },
-Address : { type: String },
-District : { type : String },
-State : { type : String },
-Pincode : {type : Number }
+name : { type : String },
+email : { type: String },
+password : { type : String },
+mobile : { type : Number },
+address : { type: String },    // or [ {type:String} ] 
+district : { type : String },
+state : { type : String },
+pincode : {type : Number }
 }
 --------------------------------------------
 Stores = {
 //id autogen.
 
-Name: { type:String (Jp nagar) },
-Store address : { type : String },
-Phone : { type : Number }
+name: { type:String (Jp nagar) },
+store address : { type : String },
+phone : { type : Number }
 }
----------------------------------------------------
-ActionSchema=mongoose.Schema({
-selected:Boolean,
-cost:Number,
-})
 -------------------------------------------
 ItemSchema=mongoose.Schema({
 quantity:Number(def 0);
-wash:ActionSchema;
-iron:ActionSchema
-fold:ActionSchema
-chemicalwash:ActionSchema;
+wash:{selected:Boolean,cost:Number},
+iron:{selected:Boolean,cost:Number},
+fold:{selected:Boolean,cost:Number},
+chemicalwash:{selected:Boolean,cost:Number},
 price:Number
 })
 ----------------------------------------------------
@@ -49,21 +44,13 @@ price:125
 
 Orders = {
 //_id:autogen ( we use for database ops)
-OrderID:{type:Buffer},
-Date&Time : {type:Date , default:Date.now },
-Shirts:ItemSchema,
-Tshirts:ItemSchema,
-Trousers:ItemSchema,
-Jeans:ItemSchema,
-Boxers:ItemSchema,
-Joggers:ItemSchema,
-Subtotal:Number;
-pickupcharges:Number,   //(setting logic)
-Total:Number;
+orderid:{type:Buffer},
+date&time : {type:Date , default:Date.now },
+items:[ shirts:ItemSchema,tshirts:ItemSchema,trousers:ItemSchema,jeans:ItemSchema,boxers:ItemSchema,joggers:ItemSchema ],
+subtotal:Number;
 store:storeschema {type:mongoose.Schema.Type.ObjectId,ref='Store'},
 user:{type:mongoose.Schema.Type.ObjectId,ref='User'},
-Status:{type:String},
-Totalitems:{type:Number}
+status:{type:String}
 }
 
 ===============================================================
