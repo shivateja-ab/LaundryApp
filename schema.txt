@@ -1,5 +1,5 @@
 Users = {
-//id autogen.
+//id autogenerate.
 name : { type : String },
 email : { type: String },
 password : { type : String },
