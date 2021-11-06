@@ -110,9 +110,10 @@ b{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    background-color: #F4F9FF;
 }
 .statusbar{
-    height: 10%;
+    height: 5%;
     border: 2px solid black;
 }
 .details{
@@ -215,4 +216,9 @@ a{
 }
 .footer{
     margin-top: -20px;
+}
+.status{
+    float:right;
+    font-weight: 100;
+    font-size: 13px;
 }

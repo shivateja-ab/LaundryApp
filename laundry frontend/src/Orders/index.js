@@ -148,9 +148,9 @@ function Orders() {
                                             <div className='storeadd'><a>Store Address</a><br />Near phone booth, 10th road</div>
                                             <div className='storephone'><a>Phone</a><br />91 9999999999</div>
                                         </div>
-                                        {/* <div className='statusbar'>status</div> */}
+                                        {/* <div className='statusbar'>orders[currindex].status</div> */}
                                         <div className='details'>
-                                            <small className='orderdetails'>Order details</small>
+                                            <small className='orderdetails'>Order details<i className='status'><b>Status</b>: {orders[currindex].status}</i></small>
                                             {orders[currindex].items.map((prod,index)=>
                                             <div className='solo-item' key={index}><div className='solo1'>{prod.name}</div>  <div className='solo2'>{prod.actions.map(action=><i>{action},</i>)}</div> <div className='solo3'>{prod.quantity} X {parseInt(prod.price/prod.quantity)} = <b>{prod.price}</b> </div> <hr></hr> </div>)}
                                             <div className='subtotal'>Sub total: <b className='numbers'>{orders[currindex].items.reduce((acc,curr)=> acc+parseInt(curr.price),0)-90}</b></div>
