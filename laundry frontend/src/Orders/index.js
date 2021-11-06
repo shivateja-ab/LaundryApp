@@ -9,6 +9,9 @@ import search from '../assets/search.png';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import dateFormat from 'dateformat';
+import Footer from "../footer/index";
+import Header from "../header/index";
+import Sidebar from "../sidebar/index";
 
 
 function Orders() {
@@ -80,10 +83,13 @@ function Orders() {
         }
     }
     return (
-        <div className='orderscontainer'>
-            <div className='head'>
+        <div className="container-fluid" Style="height:708px; width:1345px; ">
+            <Header/>
+            <div className="content">
+                <Sidebar/>
+            <div className='head' Style="width:90%">
                 <div className='numorders'>Orders  |  {orders.length}</div>
-                <button className='createbtn'>create</button>
+                <Link to={'/createorder'}><button className='createbtn' >create</button></Link>
                 <div className='searchbardiv'><img src={search} alt='searchicon' width="20" height="20"></img></div>
             </div>
             <table className="table">
@@ -179,7 +185,8 @@ function Orders() {
                 )}
                 </tbody>
             </table>
-            
+            </div>
+            <Footer />
         </div>
     )
 }
