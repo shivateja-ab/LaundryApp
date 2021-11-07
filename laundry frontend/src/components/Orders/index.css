@@ -15,11 +15,11 @@
     width: 200px;
 }
 .searchbardiv{
-    width:20%;
+    width:150px;
     padding-bottom: 5px;
     border-bottom:2px solid #A0A0A0;
     background-color: transparent;
-    margin-left: 50px;
+    margin-left: 30px;
 }
 .createbtn{
     width: 100px;
@@ -33,7 +33,7 @@
     background-color: white;
     border: 1px solid #5861AE;
     border-radius: 5px;
-    margin-left: 800px;
+    margin-left: 700px;
 
 }
 .table{

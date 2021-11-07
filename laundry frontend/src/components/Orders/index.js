@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-//import { getToken } from "../../utils/authOperations";
+import { getToken } from "../utils/authOperations";
 import "./index.css";
 import {Link} from 'react-router-dom';
 import React from 'react';
@@ -12,6 +12,7 @@ import search from '../../assets/search.png';
 import Footer from "../footer2";
 import Header from "../header2";
 import Sidebar from "../Sidebar2";
+import Sidebar1 from "../sidebar/index";
 
 
 function Orders() {
@@ -31,7 +32,7 @@ function Orders() {
                 headers: {
                     'Content-Type': 'application/json',
                     // 'Content-Type': 'application/x-www-form-urlencoded',
-                    //'Authorization':`Bearer ${getToken()}`,
+                    'Authorization':`Bearer ${getToken()}`,
                     },
                 redirect: 'follow', // manual, *follow, error
                 referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-ur
@@ -59,7 +60,7 @@ function Orders() {
                 headers: {
                     'Content-Type': 'application/json',
                     // 'Content-Type': 'application/x-www-form-urlencoded',
-                    //'Authorization':`Bearer ${getToken()}`,
+                    'Authorization':`Bearer ${getToken()}`,
                     },
                 redirect: 'follow', // manual, *follow, error
                 referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-ur
@@ -87,7 +88,8 @@ function Orders() {
             <Header/>
             <div className="content">
                 <Sidebar/>
-            <div className='head' Style="width:90%">
+                <div className="right-content" Style="width:90%">
+            <div className='head'>
                 <div className='numorders'>Orders  |  {orders.length}</div>
                 <Link to={'/createorder'}><button className='createbtn' >create</button></Link>
                 <div className='searchbardiv'><img src={search} alt='searchicon' width="20" height="20"></img></div>
@@ -185,6 +187,7 @@ function Orders() {
                 )}
                 </tbody>
             </table>
+            </div>
             </div>
             <Footer />
         </div>
