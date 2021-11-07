@@ -1,2 +1,0 @@
-# LaundryApp
-Reactjs and Nodejs
