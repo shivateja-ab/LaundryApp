@@ -291,7 +291,7 @@ function OrderCreate(){
                                         <div className='address1'>
                                             <b className='numbers'>Home</b><br />
                                             #223, 10th road, Jp Nagar,
-                                            Bangalore
+                                            Bangalore,hyderabad
                                         </div>
                                         </div>
 
