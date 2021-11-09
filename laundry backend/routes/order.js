@@ -24,7 +24,7 @@ router.post('/create',async function(req,res){
 
 router.get("/pastorders",async function(req,res){
     try{
-        const orders= await Order.find()
+        const orders= await Order.find({user:req.user})
         res.json({
             status:"success.",
             data:{
