@@ -40,6 +40,11 @@ function Orders() {
             const {data}= await response.json();
             console.log(data.orders);
             setOrders(data.orders.reverse());
+            const l=data.orders.length
+            console.log(l)
+            if(l===0){
+                window.location.href='/preorders'
+            }
 
             
 

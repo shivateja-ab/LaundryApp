@@ -18,5 +18,8 @@ function setToken(token) {
         localStorage.setItem("token", token);
     }
 }
+function removeToken(token) {
+    window.localStorage.clear()
+}
 
-export {getToken, isAuthenticated, setToken};
+export {getToken, isAuthenticated, setToken, removeToken};

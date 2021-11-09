@@ -21,7 +21,7 @@ function Addorder(){
         </div>
         <div className="add-order-content">
             <p Style="color:#5861AE">No orders available</p>
-            <button type="button" className="button button4" >Create Order</button>
+            <Link to='/createorder'><button type="button" className="button button4" >Create Order</button></Link>
         </div>
         
                 </div>

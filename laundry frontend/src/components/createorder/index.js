@@ -1,5 +1,6 @@
 import React,{useEffect, useState} from "react";
 import './index.css';
+import { getToken } from "../utils/authOperations";
 import trouser from "../../assets/trousers.jfif";
 import shirts from "../../assets/shirts.jfif";
 import jeans from "../../assets/jeans.jfif";
@@ -8,7 +9,11 @@ import jogger from "../../assets/joggers.jfif";
 import tshirt from "../../assets/Tshirts.jfif";
 import Wash from "../../assets/washing-machine.svg";
 import Press from "../../assets/ironing.svg";
-import Fold from "../../assets/btowel.svg";
+import Fold1 from "../../assets/btowel.svg";
+import Wash1 from '../../assets/wash1.svg';
+import Press1 from '../../assets/press1.svg';
+import Fold from '../../assets/fold.svg';
+import Pack1 from '../../assets/pack1.svg';
 import Pack from "../../assets/bleach.svg";
 import Others from "../../assets/others.jfif";
 import home from "../../assets/home-run (1).svg";
@@ -28,12 +33,12 @@ function OrderCreate(){
   const bill={"Washing":20,
     "Pressing":15,"Folding":10,"Chemical-washing":25}
   const [product, setproduct] = useState([]);
-  const [expression, setexpression] = useState(["_","_","_","_","_","_","_"])
+  const [expression, setexpression] = useState(["calculate","calculate","calculate","calculate","calculate","calculate","calculate"])
   const [cost, setcost] = useState(0);
   const [reset, setreset] = useState(false)
   const [icon, seticon] = useState(0)
+  const [color,setcolor]=useState([false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false])
   
-
    
   function change(e){
     setaction([])
@@ -42,25 +47,25 @@ function OrderCreate(){
    
   }
   function  selectaction(e){
+    const arr=e.target.id.split(' ')
+    const changecolor=[...color]
+    changecolor[parseInt(arr[1])-1]=!changecolor[parseInt(arr[1])-1]
+    setcolor(changecolor)
     // console.log(e.target.id)
     const res=[...action]
   //  console.log(res)
-    res.push(e.target.id)
+    res.push(arr[0])
     // console.log(res)
+
     
     setaction(res)
     let washcost=cost
-    washcost=washcost+bill[e.target.id]
+    washcost=washcost+bill[arr[0]]
     setcost(washcost)
       
     // console.log(cost)
     // console.log(action)
   }
-  useEffect(() => {
-    if (action) {
-     console.log("2", action,cost);
-    }
-   }, [action]);
 
   function calculate(e){
     item.actions=action;
@@ -91,18 +96,19 @@ function OrderCreate(){
     console.log("product",product)
     // console.log("expression",expression)
   }
-  useEffect(() => {
-    if (product) {
-     console.log("3",product);
-    }
-   }, [product]);
 
   function resetbutton(e){
+    const changecolor=[...color]
+    changecolor[parseInt(e.target.id)]=false
+    changecolor[parseInt(e.target.id)+1]=false
+    changecolor[parseInt(e.target.id)+2]=false
+    changecolor[parseInt(e.target.id)+3]=false
+    setcolor(changecolor)
     const demoproduct=[...product]
     demoproduct.pop(item)
     setproduct(demoproduct)
     item.quantity=0
-    expression[e.target.id]="_";
+    expression[e.target.id]="calculate";
     setexpression(expression)
     setitem(item)
     
@@ -117,7 +123,7 @@ function OrderCreate(){
         headers: {
             'Content-Type': 'application/json',
             // 'Content-Type': 'application/x-www-form-urlencoded',
-            // 'Authorization':`Bearer ${getToken()}`,
+            'Authorization':`Bearer ${getToken()}`,
         },
         body:JSON.stringify({
           products:product
@@ -159,10 +165,10 @@ function OrderCreate(){
                 <td><input className="quantitybox" type="number"id="Shirts"  onChange={(e)=>{change(e)}}/></td>
                 <td>
                   <tr>
-                    <td className="icons"><img id="Washing" src={Wash} alt="Wash" onClick={(e)=>{selectaction(e)}}/></td>
-                    <td className="icons"><img id="Pressing" src={Press} alt="Press" onClick={(e)=>{selectaction(e)}}/></td>
-                    <td className="icons"><img id="Folding" src={Fold} alt="Fold" onClick={(e)=>{selectaction(e)}}/></td>
-                    <td className="icons"><img id="Chemical-washing" src={Pack} alt="Pack" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Washing 1" src={color[0] ? Wash1 : Wash} alt="Wash" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Pressing 2" src={color[1] ? Press1 : Press} alt="Press" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Folding 3" src={color[2] ? Fold1 : Fold} alt="Fold" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Chemical-washing 4" src={color[3] ? Pack1 : Pack} alt="Pack" onClick={(e)=>{selectaction(e)}}/></td>
                   </tr>
                 </td>
                 <td><button type="submit" class="btn btn-default" id="0" onClick={(e)=>{calculate(e)}}>{expression[0]}</button></td>
@@ -174,10 +180,10 @@ function OrderCreate(){
                 <td><input className="quantitybox" type="number"id="Tshirts" name="Shirts" onChange={(e)=>{change(e)}}/></td>
                 <td>
                   <tr>
-                    <td className="icons"><img id="Washing" src={Wash} alt="Wash" onClick={(e)=>{selectaction(e)}}/></td>
-                    <td className="icons"><img id="Pressing" src={Press} alt="Press" onClick={(e)=>{selectaction(e)}}/></td>
-                    <td className="icons"><img id="Folding" src={Fold} alt="Fold" onClick={(e)=>{selectaction(e)}}/></td>
-                    <td className="icons"><img id="Chemical-washing" src={Pack} alt="Pack" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Washing 5" src={color[4] ? Wash1 : Wash} alt="Wash" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Pressing 6" src={color[5] ? Press1 : Press} alt="Press" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Folding 7" src={color[6] ? Fold1 : Fold} alt="Fold" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Chemical-washing 8" src={color[7] ? Pack1 : Pack} alt="Pack" onClick={(e)=>{selectaction(e)}}/></td>
                   </tr>
                 </td>
                 <td><button type="submit" class="btn btn-default" id="1" onClick={(e)=>{calculate(e)}}>{expression[1]}</button></td>
@@ -188,10 +194,10 @@ function OrderCreate(){
                 <td><input className="quantitybox" type="number"id="Trousers" name="Trousers" onChange={(e)=>{change(e)}}/></td>
                 <td>
                   <tr>
-                    <td className="icons"><img id="Washing" src={Wash} alt="Wash" onClick={(e)=>{selectaction(e)}}/></td>
-                    <td className="icons"><img id="Pressing" src={Press} alt="Press" onClick={(e)=>{selectaction(e)}}/></td>
-                    <td className="icons"><img id="Folding" src={Fold} alt="Fold" onClick={(e)=>{selectaction(e)}}/></td>
-                    <td className="icons"><img id="Chemical-washing" src={Pack} alt="Pack" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Washing 9" src={color[8] ? Wash1 : Wash} alt="Wash" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Pressing 10" src={color[9] ? Press1 : Press} alt="Press" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Folding 11" src={color[10] ? Fold1 : Fold} alt="Fold" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Chemical-washing 12" src={color[11] ? Pack1 : Pack} alt="Pack" onClick={(e)=>{selectaction(e)}}/></td>
                   </tr>
                 </td>
                 <td><button type="submit" class="btn btn-default" id="2" onClick={(e)=>{calculate(e)}}>{expression[2]}</button></td>
@@ -202,10 +208,10 @@ function OrderCreate(){
                 <td><input className="quantitybox" type="number"id="Jeans" name="Jeans" onChange={(e)=>{change(e)}}/></td>
                 <td>
                   <tr>
-                    <td className="icons"><img id="Washing" src={Wash} alt="Wash" onClick={(e)=>{selectaction(e)}}/></td>
-                    <td className="icons"><img id="Pressing" src={Press} alt="Press" onClick={(e)=>{selectaction(e)}}/></td>
-                    <td className="icons"><img id="Folding" src={Fold} alt="Fold" onClick={(e)=>{selectaction(e)}}/></td>
-                    <td className="icons"><img id="Chemical-washing" src={Pack} alt="Pack" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Washing 13" src={color[12] ? Wash1 : Wash} alt="Wash" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Pressing 14" src={color[13] ? Press1 : Press} alt="Press" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Folding 15" src={color[14] ? Fold1 : Fold} alt="Fold" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Chemical-washing 16" src={color[15] ? Pack1 : Pack} alt="Pack" onClick={(e)=>{selectaction(e)}}/></td>
                   </tr>
                 </td>
                 <td><button type="submit" class="btn btn-default" id="3" onClick={(e)=>{calculate(e)}}>{expression[3]}</button></td>
@@ -216,13 +222,13 @@ function OrderCreate(){
                 <td><input className="quantitybox" type="number"id="Boxers" name="Boxers" onChange={(e)=>{change(e)}}/></td>
                 <td>
                   <tr>
-                    <td className="icons"><img id="Washing" src={Wash} alt="Wash" onClick={(e)=>{selectaction(e)}}/></td>
-                    <td className="icons"><img id="Pressing" src={Press} alt="Press" onClick={(e)=>{selectaction(e)}}/></td>
-                    <td className="icons"><img id="Folding" src={Fold} alt="Fold" onClick={(e)=>{selectaction(e)}}/></td>
-                    <td className="icons"><img id="Chemical-washing" src={Pack} alt="Pack" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Washing 17" src={color[16] ? Wash1 : Wash} alt="Wash" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Pressing 18" src={color[17] ? Press1 : Press} alt="Press" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Folding 19" src={color[18] ? Fold1 : Fold} alt="Fold" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Chemical-washing 20" src={color[19] ? Pack1 : Pack} alt="Pack" onClick={(e)=>{selectaction(e)}}/></td>
                   </tr>
                 </td>
-                <td><button type="submit" class="btn btn-default" id="4" onClick={(e)=>{calculate(e)}}>{expression[4]}</button>{expression[4]}</td>
+                <td><button type="submit" class="btn btn-default" id="4" onClick={(e)=>{calculate(e)}}>{expression[4]}</button></td>
                 <td>{reset ? <button type="submit" class="btn btn-default" id="4" onClick={(e)=>{resetbutton(e)}}>reset</button> : null}</td>
               </tr>
     <tr className="row-height">
@@ -231,10 +237,10 @@ function OrderCreate(){
       <td><input className="quantitybox" type="number"id="Joggers" name="Joggers" onChange={(e)=>{change(e)}}/></td>
       <td>
                   <tr>
-                    <td className="icons"><img id="Washing" src={Wash} alt="Wash" onClick={(e)=>{selectaction(e)}}/></td>
-                    <td className="icons"><img id="Pressing" src={Press} alt="Press" onClick={(e)=>{selectaction(e)}}/></td>
-                    <td className="icons"><img id="Folding" src={Fold} alt="Fold" onClick={(e)=>{selectaction(e)}}/></td>
-                    <td className="icons"><img id="Chemical-washing" src={Pack} alt="Pack" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Washing 21" src={color[20] ? Wash1 : Wash} alt="Wash" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Pressing 22" src={color[21] ? Press1 : Press} alt="Press" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Folding 23" src={color[22] ? Fold1 : Fold} alt="Fold" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Chemical-washing 24" src={color[23] ? Pack1 : Pack} alt="Pack" onClick={(e)=>{selectaction(e)}}/></td>
                   </tr>
                 </td>
                 <td><button type="submit" class="btn btn-default" id="5" onClick={(e)=>{calculate(e)}}>{expression[5]}</button></td>
@@ -246,10 +252,10 @@ function OrderCreate(){
       <td><input className="quantitybox" type="number"id="Others" name="Others" onChange={(e)=>{change(e)}}/></td>
       <td>
                   <tr>
-                    <td className="icons"><img id="Washing" src={Wash} alt="Wash" onClick={(e)=>{selectaction(e)}}/></td>
-                    <td className="icons"><img id="Pressing" src={Press} alt="Press" onClick={(e)=>{selectaction(e)}}/></td>
-                    <td className="icons"><img id="Folding" src={Fold} alt="Fold" onClick={(e)=>{selectaction(e)}}/></td>
-                    <td className="icons"><img id="Chemical-washing" src={Pack} alt="Pack" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Washing 25" src={color[24] ? Wash1 : Wash} alt="Wash" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Pressing 26" src={color[25] ? Press1 : Press} alt="Press" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Folding 27" src={color[26] ? Fold1 : Fold} alt="Fold" onClick={(e)=>{selectaction(e)}}/></td>
+                    <td className="icons"><img id="Chemical-washing 28" src={color[27] ? Pack1 : Pack} alt="Pack" onClick={(e)=>{selectaction(e)}}/></td>
                   </tr>
                 </td>
                 <td><button type="submit" class="btn btn-default" id="6" onClick={(e)=>{calculate(e)}}>{expression[6]}</button></td>
@@ -291,7 +297,7 @@ function OrderCreate(){
                                         <div className='address1'>
                                             <b className='numbers'>Home</b><br />
                                             #223, 10th road, Jp Nagar,
-                                            Bangalore,hyderabad
+                                            Bangalore
                                         </div>
                                         </div>
 
